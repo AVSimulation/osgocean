@@ -33,6 +33,12 @@ osg::Shader* readShader(const std::string& filename)
     (OPENSCENEGRAPH_MAJOR_VERSION == 2 && OPENSCENEGRAPH_MINOR_VERSION > 9) || \
     (OPENSCENEGRAPH_MAJOR_VERSION == 2 && OPENSCENEGRAPH_MINOR_VERSION == 9 && OPENSCENEGRAPH_PATCH_VERSION >= 1)
 
+
+    // Verify before loading to avoid error message
+    std::string fullpath = osgDB::findDataFile(filename);
+    if (fullpath.empty())
+        return 0;
+
     // This will search the registry's file path.
     return osgDB::readShaderFile(filename);
 
